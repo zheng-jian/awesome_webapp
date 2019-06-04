@@ -79,14 +79,14 @@ class RequestHandler(object):
         self._named_kw_arg = get_named_kw_args(fn)
         self._required_kw_args = get_required_kw_args(fn)
 
-    async def _call_(self,request):
+    async def __call__(self,request):
         kw = None
         if self._has_named_kw_arg or self._has_var_kw_arg:
             if request.method == 'POST':
                 if not request.content_type:
                     return web.HTTPBadRequest(text='Missing Content_type')
                 ct = request.content_type.lower()
-                if  ct.startwith('application/json'):
+                if ct.startwith('application/json'):
                     params = await request.json()
                     if not isinstance(params,dict):
                         return web.HTTPBadRequest(text='JSON body must be object')
@@ -119,7 +119,7 @@ class RequestHandler(object):
             kw['request'] = request
         if self._required_kw_args:
             for name in self._required_kw_args:
-                if not name in kw:
+                if name not in kw:
                     return web.HTTPBadRequest(text='Missing argument: %s' % name)
         logging.info('call with args: %s' % str(kw))
         try:
@@ -146,10 +146,10 @@ def add_route(app,fn):
 def add_routes(app,module_name):
     n = module_name.rfind('.')
     if n == -1:
-        mod = __import__ (module_name,globals(),locals())
+        mod = __import__(module_name,globals(),locals())
     else:
         name = module_name[n+1:]
-        mod = getattr(__import__(module_name[:n],globals(),locals(),[name],0),name)
+        mod = getattr(__import__(module_name[:n],globals(),locals(),[name]),name)
     for attr in dir(mod):
         if attr.startswith('_'):
             continue

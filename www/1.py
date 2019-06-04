@@ -1,9 +1,8 @@
-def a(num):
-    bb = 0
-    print('this is num : %s' % num)
-    def b(ber):
-        print('this is ber : %s' % ber)
-        return ber
+def a(app):
+    print(app)
+    def b(re):
+        print(re)
     return b
 
-getattr(a,'__doc__')
+ss = a('hehe')
+ss('haha')
