@@ -26,11 +26,11 @@ Functions(in file 'www'):
     models: 3 models ,user, blog, comment
 
 ### Summary: 
-Good to learn about python web framework and process, orm
-Can help developpers focus on adding handlers
-But
-Python code without comment is very hard to review and read.
-Hard to maintain
-And can not find a job as python back-end in China :(
+    Good to learn about python web framework and process, orm
+    Can help developpers focus on adding handlers
+    But
+    Python code without comment is very hard to review and read.
+    Hard to maintain
+    And can not find a job as python back-end in China :(
 
 Move to a new project 'Community' with spring and bootstrap
